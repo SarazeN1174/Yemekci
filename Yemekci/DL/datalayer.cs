@@ -17,7 +17,7 @@ namespace Yemekci.DL
                 Server = "localhost",
                 Database = "yemekci",
                 UserID = "root",
-                Password = "asd",
+                Password = "",
 
             }.ConnectionString
          );
