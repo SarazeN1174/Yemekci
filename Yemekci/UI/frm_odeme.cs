@@ -94,10 +94,10 @@ namespace Yemekci.UI
 
         private void btnMüşteriSeç_Click(object sender, EventArgs e)
         {
-            Yemekci ymk = new Yemekci();
-            if (ymk.ShowDialog() == DialogResult.OK)
+            Musteriler müşteri = new Musteriler();
+            if (müşteri.ShowDialog() == DialogResult.OK)
             {
-                txt_müsteri.Text = ymk.Musteri.ID.ToString();
+                txt_müsteri.Text = müşteri.Musteri.ID.ToString();
             }
         }
     }

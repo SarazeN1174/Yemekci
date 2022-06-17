@@ -19,10 +19,6 @@ namespace Yemekci
             InitializeComponent();
         }
 
-        public Musteri Musteri { get; set; }
-        
-        public Yemek Yemek { get; set; }
-
         private void btn_siparisver_Click(object sender, EventArgs e)
         {
             frm_siparis frmsiparis = new frm_siparis()
@@ -61,179 +57,10 @@ namespace Yemekci
             }
         }
 
-        private void btn_yemekekle_Click(object sender, EventArgs e)
-        {
-            frm_yemek frmyemek = new frm_yemek()
-            {
-                Text = "Yemek Ekle",
-                Yemek = new Yemek() { ID = Guid.NewGuid() },
-            };
-
-        tekrar:
-            var sonuc = frmyemek.ShowDialog();
-            if (sonuc == DialogResult.OK)
-            {
-                bool b = BLogic.YemekEkle(frmyemek.Yemek);
-
-                if (b)
-                {
-
-                    DataSet ds = BLogic.YemekGetir("");
-                    if (ds != null)
-                        dataGridView2.DataSource = ds.Tables[0];
-                }
-                else
-                    goto tekrar;
-            }
-        }
-
-        private void btn_mstrekle_Click(object sender, EventArgs e)
-        {
-            frm_müsteri frmMusteri = new frm_müsteri()
-            {
-                Text = "Müşteri Ekle",
-                Musteri = new Musteri() { ID = Guid.NewGuid() },
-            };
-
-        tekrar:
-            var sonuc = frmMusteri.ShowDialog();
-            if (sonuc == DialogResult.OK)
-            {
-                bool b = BLogic.MüşteriEkle(frmMusteri.Musteri);
-
-                if (b)
-                {
-
-                    DataSet ds = BLogic.MüşteriGetir("");
-                    if (ds != null)
-                        dataGridView1.DataSource = ds.Tables[0];
-                }
-                else
-                    goto tekrar;
-
-            }
-        }
-
-        private void btn_ymkdüzenle_Click(object sender, EventArgs e)
-        {
-            DataGridViewRow row = dataGridView2.SelectedRows[0];
-
-            frm_yemek yemek = new frm_yemek()
-            {
-                Text = "Yemek Güncelle",
-                Güncelleme = true,
-                Yemek = new Yemek()
-                {
-                    ID = Guid.Parse(row.Cells[0].Value.ToString()),
-                    Ad = row.Cells[1].Value.ToString(),
-                    Kategori = row.Cells[2].Value.ToString(),
-                    Fiyat = double.Parse(row.Cells[3].Value.ToString()),
-                    Ayrıntı = row.Cells[6].Value.ToString(),
-
-                },
-            };
-
-            var sonuc = yemek.ShowDialog();
-            if (sonuc == DialogResult.OK)
-            {
-                bool b = BLogic.YemekGüncelle(yemek.Yemek);
-
-                if (b)
-                {
-                    row.Cells[1].Value = yemek.Yemek.Ad;
-                    row.Cells[2].Value = yemek.Yemek.Kategori;
-                    row.Cells[3].Value = yemek.Yemek.Fiyat;
-                    row.Cells[6].Value = yemek.Yemek.Ayrıntı;
-                }
-            }
-        }
-
-        private void btn_ymksil_Click(object sender, EventArgs e)
-        {
-            DataGridViewRow row = dataGridView2.SelectedRows[0];
-            var ID = row.Cells[0].Value.ToString();
-
-
-            var sonuc = MessageBox.Show("Seçili kayıt silinsin mi?", "Silmeyi onayla",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-
-            if (sonuc == DialogResult.OK)
-            {
-                bool b = BLogic.YemekSil(ID);
-
-                if (b)
-                {
-
-                    DataSet ds = BLogic.YemekGetir("");
-                    if (ds != null)
-                        dataGridView2.DataSource = ds.Tables[0];
-                }
-            }
-        }
-
-        private void btn_mstrdüzenle_Click(object sender, EventArgs e)
-        {
-            DataGridViewRow row = dataGridView1.SelectedRows[0];
-
-            frm_müsteri frmMusteri = new frm_müsteri()
-            {
-                Text = "Müşteri Güncelle",
-                Güncelleme = true,
-                Musteri = new Musteri()
-                {
-                    ID = Guid.Parse(row.Cells[0].Value.ToString()),
-                    Ad = row.Cells[1].Value.ToString(),
-                    Soyad = row.Cells[2].Value.ToString(),
-                    Telefon = row.Cells[3].Value.ToString(),
-                    Mail = row.Cells[4].Value.ToString(),
-                    Adres = row.Cells[5].Value.ToString(),
-
-                },
-            };
-
-            var sonuc = frmMusteri.ShowDialog();
-            if (sonuc == DialogResult.OK)
-            {
-                bool b = BLogic.MüşteriGüncelle(frmMusteri.Musteri);
-
-                if (b)
-                {
-                    row.Cells[1].Value = frmMusteri.Musteri.Ad;
-                    row.Cells[2].Value = frmMusteri.Musteri.Soyad;
-                    row.Cells[3].Value = frmMusteri.Musteri.Telefon;
-                    row.Cells[4].Value = frmMusteri.Musteri.Mail;
-                    row.Cells[5].Value = frmMusteri.Musteri.Adres;
-
-                }
-
-            }
-        }
-
-        private void btn_mstrsil_Click(object sender, EventArgs e)
-        {
-            DataGridViewRow row = dataGridView1.SelectedRows[0];
-            var ID = row.Cells[0].Value.ToString();
-
-
-            var sonuc = MessageBox.Show("Seçili kayıt silinsin mi?", "Silmeyi onayla",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-
-            if (sonuc == DialogResult.OK)
-            {
-                bool b = BLogic.MüşteriSil(ID);
-
-                if (b)
-                {
-                    DataSet ds = BLogic.MüşteriGetir("");
-                    if (ds != null)
-                        dataGridView1.DataSource = ds.Tables[0];
-                }
-            }
-        }
 
         private void btn_sprsdüzenle_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = dataGridView1.SelectedRows[0];
+            DataGridViewRow row = dataGridViewsiparis.SelectedRows[0];
 
             frm_siparis frmsiparis = new frm_siparis()
             {
@@ -244,8 +71,8 @@ namespace Yemekci
                     ID = Guid.Parse(row.Cells[0].Value.ToString()),
                     MusteriID = Guid.Parse(row.Cells[1].Value.ToString()),
                     YemekID = Guid.Parse(row.Cells[2].Value.ToString()),
-                    Fiyat = double.Parse(row.Cells[7].Value.ToString()),
-                    Tarih = DateTime.Parse(row.Cells[8].Value.ToString()),
+                    Fiyat = double.Parse(row.Cells[3].Value.ToString()),
+                    Tarih = DateTime.Parse(row.Cells[4].Value.ToString()),
 
                 },
             };
@@ -259,17 +86,16 @@ namespace Yemekci
                 {
                     row.Cells[1].Value = frmsiparis.Siparis.MusteriID;
                     row.Cells[2].Value = frmsiparis.Siparis.YemekID;
-                    row.Cells[7].Value = frmsiparis.Siparis.Fiyat;
-                    row.Cells[8].Value = frmsiparis.Siparis.Tarih;
+                    row.Cells[3].Value = frmsiparis.Siparis.Fiyat;
+                    row.Cells[4].Value = frmsiparis.Siparis.Tarih;
 
                 }
-
             }
         }
 
         private void btn_sprssil_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = dataGridView1.SelectedRows[0];
+            DataGridViewRow row = dataGridViewsiparis.SelectedRows[0];
             var ID = row.Cells[0].Value.ToString();
 
 
@@ -278,14 +104,16 @@ namespace Yemekci
 
             if (sonuc == DialogResult.OK)
             {
-                bool b = BLogic.SiparisSil(ID);
+                DataSet ds = BLogic.SiparisDetay();
+                if (ds != null)
+                    dataGridViewsiparis.DataSource = ds.Tables[0];
 
             }
         }
 
         private void btn_odemedüzenle_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = dataGridView2.SelectedRows[0];
+            DataGridViewRow row = dataGridViewodeme.SelectedRows[0];
 
             frm_odeme frmodeme = new frm_odeme()
             {
@@ -319,7 +147,7 @@ namespace Yemekci
 
         private void btn_odemesil_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = dataGridView2.SelectedRows[0];
+            DataGridViewRow row = dataGridViewodeme.SelectedRows[0];
             var ID = row.Cells[0].Value.ToString();
 
 
@@ -335,24 +163,27 @@ namespace Yemekci
 
         private void Yemekci_Load(object sender, EventArgs e)
         {
-            DataSet ds1 = BLogic.MüşteriGetir("");
+            DataSet ds1 = BLogic.SiparisDetay();
             if (ds1 != null)
-                dataGridView1.DataSource = ds1.Tables[0];
+                dataGridViewsiparis.DataSource = ds1.Tables[0];
 
-            DataSet ds2 = BLogic.YemekGetir("");
+
+            DataSet ds2 = BLogic.OdemeDetay();
             if (ds2 != null)
-                dataGridView2.DataSource = ds2.Tables[0];
+                dataGridViewodeme.DataSource = ds2.Tables[0];
         }
 
+        Musteriler M_from = new Musteriler();
+        yemekler Y_form = new yemekler();
 
-        private void btn_tm_Click_1(object sender, EventArgs e)
+        private void btn_yemekler_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
+            Y_form.ShowDialog();
         }
 
-        private void btn_iptal_Click(object sender, EventArgs e)
+        private void btn_müsteriler_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+            M_from.ShowDialog();
         }
     }
 }

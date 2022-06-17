@@ -438,5 +438,64 @@ namespace Yemekci.DL
         }
 
 
+        internal static DataSet SiparisDetay()
+        {
+            try
+            {
+                if (baglantı.State != System.Data.ConnectionState.Open)
+                    baglantı.Open();
+
+                MySqlCommand komut = new MySqlCommand("SiparisDetay", baglantı);
+                komut.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                DataSet dataSet = new DataSet();
+                MySqlDataAdapter adp = new MySqlDataAdapter(komut);
+                adp.Fill(dataSet);
+
+                return dataSet;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (baglantı.State != System.Data.ConnectionState.Closed)
+                    baglantı.Close();
+            }
+        }
+
+        internal static DataSet OdemeDetay()
+        {
+            try
+            {
+                if (baglantı.State != System.Data.ConnectionState.Open)
+                    baglantı.Open();
+
+                MySqlCommand komut = new MySqlCommand("OdemeDetay", baglantı);
+                komut.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                DataSet dataSet = new DataSet();
+                MySqlDataAdapter adp = new MySqlDataAdapter(komut);
+                adp.Fill(dataSet);
+
+                return dataSet;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (baglantı.State != System.Data.ConnectionState.Closed)
+                    baglantı.Close();
+            }
+        }
+
+
     }
 }

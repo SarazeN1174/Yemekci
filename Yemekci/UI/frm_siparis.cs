@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using Yemekci.DL;
 
 namespace Yemekci.UI
@@ -24,13 +23,13 @@ namespace Yemekci.UI
 
         private void btn_tm_Click(object sender, EventArgs e)
         {
-            if (!ErrorControl(comboBox1)) return;
-            if (!ErrorControl(comboBox2)) return;
+            if (!ErrorControl(textBox1)) return;
+            if (!ErrorControl(textBox1)) return;
             if (!ErrorControl(nmrc_fiyat)) return;
             if (!ErrorControl(dt_tarih)) return;
 
-            Siparis.MusteriID = Guid.Parse(comboBox1.Text);
-            Siparis.YemekID = Guid.Parse(comboBox2.Text);
+            Siparis.MusteriID = Guid.Parse(textBox1.Text);
+            Siparis.YemekID = Guid.Parse(textBox2.Text);
             Siparis.Tarih = dt_tarih.Value;
             Siparis.Fiyat = (double)nmrc_fiyat.Value;
 
@@ -83,32 +82,20 @@ namespace Yemekci.UI
 
         private void btn_MüşteriSeç_Click(object sender, EventArgs e)
         {
-            
-            MySqlConnection baglantı = new MySqlConnection(
-            new MySqlConnectionStringBuilder()
-            {Server = "localhost",Database = "yemekci",UserID = "root",Password = "",}.ConnectionString);
-
-            baglantı.Open();
-            MySqlCommand cmd = new MySqlCommand("select musteri_ID from musteriler", baglantı);
-            MySqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
+            Musteriler frm = new Musteriler();
+            if (frm.ShowDialog() == DialogResult.OK)
             {
-                comboBox1.Items.Add(dr["musteri_ID"]);
+                textBox1.Text = frm.Musteri.ID.ToString();
             }
+
         }
 
         private void btn_yemeksec_Click(object sender, EventArgs e)
         {
-            MySqlConnection baglantı = new MySqlConnection(
-            new MySqlConnectionStringBuilder()
-            { Server = "localhost", Database = "yemekci", UserID = "root", Password = "", }.ConnectionString);
-
-            baglantı.Open();
-            MySqlCommand cmd = new MySqlCommand("select yemekID from yemekler", baglantı);
-            MySqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
+            yemekler frm = new yemekler();
+            if (frm.ShowDialog() == DialogResult.OK)
             {
-                comboBox2.Items.Add(dr["yemekID"]);
+                textBox2.Text = frm.Yemek.ID.ToString();
             }
         }
     }

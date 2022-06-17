@@ -223,5 +223,35 @@ namespace Yemekci.BL
                 return false;
             }
         }
+
+        internal static DataSet SiparisDetay()
+        {
+            try
+            {
+                DataSet ds = DataLayer.SiparisDetay();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata oluştu:" + ex.Message);
+                return null;
+            }
+        }
+
+        internal static DataSet OdemeDetay()
+        {
+            try
+            {
+                DataSet ds = DataLayer.OdemeDetay();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata oluştu:" + ex.Message);
+                return null;
+            }
+        }
     }
 }
