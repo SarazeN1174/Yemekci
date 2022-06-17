@@ -104,15 +104,24 @@ namespace Yemekci
 
             if (sonuc == DialogResult.OK)
             {
-                DataSet ds = BLogic.SiparisDetay();
-                if (ds != null)
-                    dataGridViewsiparis.DataSource = ds.Tables[0];
+                bool b = BLogic.SiparisSil(ID);
+
+                if (b)
+                {
+
+                    DataSet ds = BLogic.SiparisDetay();
+                    if (ds != null)
+                        dataGridViewsiparis.DataSource = ds.Tables[0];
+                }
 
             }
         }
 
+
+
         private void btn_odemedüzenle_Click(object sender, EventArgs e)
-        {
+        { 
+        
             DataGridViewRow row = dataGridViewodeme.SelectedRows[0];
 
             frm_odeme frmodeme = new frm_odeme()
@@ -137,9 +146,9 @@ namespace Yemekci
                 if (b)
                 {
                     row.Cells[1].Value = frmodeme.Odeme.MusteriID;
-                    row.Cells[3].Value = frmodeme.Odeme.Tarih;
-                    row.Cells[4].Value = frmodeme.Odeme.Tutar;
-                    row.Cells[5].Value = frmodeme.Odeme.Tur;
+                    row.Cells[2].Value = frmodeme.Odeme.Tarih;
+                    row.Cells[3].Value = frmodeme.Odeme.Tutar;
+                    row.Cells[4].Value = frmodeme.Odeme.Tur;
                 }
 
             }
@@ -158,6 +167,13 @@ namespace Yemekci
             {
                 bool b = BLogic.OdemeSil(ID);
 
+                if (b)
+                {
+
+                    DataSet ds = BLogic.OdemeDetay();
+                    if (ds != null)
+                        dataGridViewodeme.DataSource = ds.Tables[0];
+                }
             }
         }
 
