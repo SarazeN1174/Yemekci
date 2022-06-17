@@ -121,7 +121,7 @@ namespace Yemekci
             this.pg_odeme.Location = new System.Drawing.Point(4, 25);
             this.pg_odeme.Name = "pg_odeme";
             this.pg_odeme.Padding = new System.Windows.Forms.Padding(3);
-            this.pg_odeme.Size = new System.Drawing.Size(831, 431);
+            this.pg_odeme.Size = new System.Drawing.Size(831, 439);
             this.pg_odeme.TabIndex = 3;
             this.pg_odeme.Text = "Ödemeler";
             this.pg_odeme.UseVisualStyleBackColor = true;
@@ -134,7 +134,7 @@ namespace Yemekci
             this.dataGridViewodeme.Name = "dataGridViewodeme";
             this.dataGridViewodeme.RowHeadersWidth = 51;
             this.dataGridViewodeme.RowTemplate.Height = 24;
-            this.dataGridViewodeme.Size = new System.Drawing.Size(825, 398);
+            this.dataGridViewodeme.Size = new System.Drawing.Size(825, 406);
             this.dataGridViewodeme.TabIndex = 3;
             // 
             // toolStrip5
